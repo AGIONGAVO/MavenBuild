@@ -32,8 +32,12 @@ jobs:
         cache: maven
     - name: Build with Maven
       run: mvn -B pakage --file pom.xml
-    - name: SonarQube Scan
-      uses: sonarsource/sonarqube-scan-action@master
+    - name: set up the maven dependencies caching
+      uses: actions/cache@v3.3.2
+      with:
+        path: ~/.m2
+        key: $
+      
       env:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
